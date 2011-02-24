@@ -1,35 +1,43 @@
-// Panmind Alexandrian - (C) 2009 Mind2Mind S.r.L.
+// jQuery Behaviours - (C) 2009-2010 vjt@openssl.it
 //
-// This plugin allows a text input field to have a default value that is
-// removed onfocus and restored onblur, if the user has not input anything.
+// This plugin implements the HTML5 "placeholder" attribute
+// on browsers that do not support it. If native support is
+// detected, the plugin does nothing.
 //
-//   - vjt  Fri Oct  2 18:09:23 CEST 2009
+// TODO: handle elements loaded via AJAX.
 //
-$.fn.hasDefaultValue = function () {
-  return this.each (function () {
-    var input = $(this)
-    var defaultValue = input.val ();
-    var form = input.parents ('form');
+(function ($) {
 
-    input.focus (function () {
-      if (input.val() == defaultValue)
-        input.val ('');
+  $(function () {
+    if ($('<input/>')[0].placeholder !== undefined)
+      return; // Browser supports placeholder attribute
 
-    }).blur (function () {
-      if (input.val () == '')
-        input.val (defaultValue);
+    $('input[placeholder]').each (function () {
+      var input  = $(this);
+      var defval = input.attr ('placeholder');
+      var form   = input.closest ('form');
+
+      var revert = function () {
+        input.val (defval).css ({color: '#999'});
+      };
+
+      var clear = function () {
+        input.val ('').css ({color: ''});
+      }
+
+      input.bind ({
+        focus:  function () { if (input.val () == defval) clear ()  },
+        blur:   function () { if (input.val () == '')     revert () },
+        revert: function () { revert () }
+      })
+
+      revert ();
+
+      if (form.length)
+        form.submit (function () {
+          if (input.val () == defval) clear ();
+        });
     });
-
-    input.bind ('revert', function () {
-      input.val (defaultValue);
-    });
-
-    if (form) {
-      form.submit(function() {
-        if (input.val() == defaultValue)
-          input.val('');
-      });
-    }
   });
-};
 
+}) (jQuery);
