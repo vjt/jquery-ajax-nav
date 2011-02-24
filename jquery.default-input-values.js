@@ -31,7 +31,7 @@
         revert: function () { revert () }
       })
 
-      revert ();
+      if (input.val () == '') revert ();
 
       if (form.length)
         form.submit (function () {
