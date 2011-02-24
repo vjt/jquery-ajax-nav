@@ -17,13 +17,8 @@
       var defval = input.attr ('placeholder');
       var form   = input.closest ('form');
 
-      var revert = function () {
-        input.val (defval).css ({color: '#999'});
-      };
-
-      var clear = function () {
-        input.val ('').css ({color: ''});
-      }
+      var revert = function () { input.val (defval).css ({color: '#999'}); }
+      var clear  = function () { input.val ('')    .css ({color: ''    }); }
 
       input.bind ({
         focus:  function () { if (input.val () == defval) clear ()  },
