@@ -513,9 +513,21 @@ $('.selecter').live ('click', function () {
   return false;
 });
 
+// Opposite of above
+//
 $('.deselecter').live ('click', function () {
   var selector = $(this).attr('rel');
   $(selector + ':checkbox').check (false).trigger ('change');
+  return false;
+});
+
+// Inverter: inverts the checked status of checkboxes via the selector in rel
+//
+$('.inverter').live ('click', function () {
+  var selector = $(this).attr('rel');
+  $(selector + ':checkbox').each (function () {
+    $(this).check (!this.checked).trigger ('change');
+  });
   return false;
 });
 
