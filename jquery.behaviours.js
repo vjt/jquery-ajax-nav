@@ -326,24 +326,6 @@ $(function () {
   });
 })
 
-// The asker
-$('.asker').live ('click', function () {
-  var asker    = $(this);
-  var question = asker.attr ('title');
-  var deletee  = undefined;
-
-  if (!question)
-    $.behaviourError (this, 'no "title" attribute defined on the asker!');
-
-  if (asker.hasClass ('deleter'))
-    deletee = asker.hierarchyFind (asker.attr ('rel')).dim ();
-
-  return combine (confirm (question), function (confirmation) {
-    if (!confirmation && deletee)
-      deletee.opaque ();
-  });
-});
-
 // The deleter
 /* Example usage of the `deleted` event:
  *
@@ -371,6 +353,18 @@ $('.deleter').live ('click', function () {
   var deletee = deleter.hierarchyFind (selector);
 
   deletee.dim ();
+
+  if (deleter.hasClass ('asker')) {
+    var question = deleter.attr ('title');
+
+    if (!question)
+      $.behaviourError (this, 'no "title" attribute defined on the asker!');
+
+    if (!confirm (question)) {
+      deletee.opaque ();
+      return false;
+    }
+  }
 
   var remove  = function () {
     deleter.trigger ({type: 'deleted', deletee: deletee});
