@@ -12,11 +12,12 @@
     var options = arguments[0] || {};
     var content = $(this);
     var options = $.extend ({
-      inner : content.height (),
-      outer : content.outerHeight (),
+      inner  : content.height (),
+      outer  : content.outerHeight (),
 
-      header: '#header',
-      footer: '#footer'
+      header : '#header',
+      footer : '#footer',
+      content: content
     }, options);
 
     fill (options);
@@ -45,14 +46,14 @@
     var content = $(options.content);
     var footer  = $(options.footer );
 
-    var inner   = options.inner || $(content).height ();
-    var outer   = options.outer || $(content).outerHeight ();
+    var inner   = options.inner;
+    var outer   = options.outer;
     var changed = $(window).height () - header.outerHeight () - footer.outerHeight ();
 
     changed -= outer - inner;
 
     if (inner < changed)
-      $(content).height (changed);
+      content.height (changed);
   };
 
 }) (jQuery);
