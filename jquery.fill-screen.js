@@ -16,48 +16,48 @@
  */
 (function ($) {
 
-$.fillScreen = function () {
-  var options = arguments[0] || {};
+  $.fillScreen = function () {
+    var options = arguments[0] || {};
 
-  var header  = $(options.header  || '#header' );
-  var content = $(options.content || '#content');
-  var footer  = $(options.footer  || '#footer' );
+    var header  = $(options.header  || '#header' );
+    var content = $(options.content || '#content');
+    var footer  = $(options.footer  || '#footer' );
 
-  var inner   = options.inner || $(content).height ();
-  var outer   = options.outer || $(content).outerHeight ();
-  var changed = $(window).height () - header.outerHeight () - footer.outerHeight ();
+    var inner   = options.inner || $(content).height ();
+    var outer   = options.outer || $(content).outerHeight ();
+    var changed = $(window).height () - header.outerHeight () - footer.outerHeight ();
 
-  changed -= outer - inner;
+    changed -= outer - inner;
 
-  if (inner < changed)
-    $(content).height (changed);
-};
+    if (inner < changed)
+      $(content).height (changed);
+  };
 
-/**
- * Repeatedly calls the $.fillScreen () method when the window
- * is resized. Evaluates *once* the content height, and passes
- * it to the $.fillScreen () method on every invocation.
- */
-$.keepScreenFilled = function () {
-  var options = arguments[0] || {};
-  var content = $(options.content || '#content');
-  var options = $.extend ({
-    inner: content.height (),
-    outer: content.outerHeight ()
-  }, options);
+  /**
+   * Repeatedly calls the $.fillScreen () method when the window
+   * is resized. Evaluates *once* the content height, and passes
+   * it to the $.fillScreen () method on every invocation.
+   */
+  $.keepScreenFilled = function () {
+    var options = arguments[0] || {};
+    var content = $(options.content || '#content');
+    var options = $.extend ({
+      inner: content.height (),
+      outer: content.outerHeight ()
+    }, options);
 
-  $.fillScreen (options);
-  $(window).resize (function () {
     $.fillScreen (options);
-  });
-};
+    $(window).resize (function () {
+      $.fillScreen (options);
+    });
+  };
 
-/**
- * Reset the fill on the given content, or #content
- */
-$.resetFill = function () {
-  var options = arguments[0] || {};
-  $(options.content || '#content').attr ('style', '');
-};
+  /**
+   * Reset the fill on the given content, or #content
+   */
+  $.resetFill = function () {
+    var options = arguments[0] || {};
+    $(options.content || '#content').attr ('style', '');
+  };
 
 }) (jQuery);
