@@ -14,6 +14,8 @@
  * If the calculated dimensions are *less* than the actual
  * ones, nothing is performed.
  */
+(function ($) {
+
 $.fillScreen = function () {
   var options = arguments[0] || {};
 
@@ -57,3 +59,5 @@ $.resetFill = function () {
   var options = arguments[0] || {};
   $(options.content || '#content').attr ('style', '');
 };
+
+}) (jQuery);
