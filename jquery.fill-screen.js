@@ -3,9 +3,9 @@
 //  - vjt  Mon Mar 14 18:04:04 CET 2011
 
 /**
- * Dynamically adjusts the height of the "#main" container to
- * the available maximum, after subtracting the height of the
- * "#statusBar" header and the "#mainFooter" footer.
+ * Dynamically adjusts the height of the #content container
+ * to the available maximum,  after subtracting the #header
+ * and the #footer heights.
  *
  * You can pass the IDs via options.header, options.content
  * and options.footer and and you can also pass the content
@@ -38,7 +38,7 @@ $.fillScreen = function () {
  */
 $.keepScreenFilled = function () {
   var options = arguments[0] || {};
-  var content = $(options.content || '#main');
+  var content = $(options.content || '#content');
   var options = $.extend ({
     inner: content.height (),
     outer: content.outerHeight ()
@@ -51,9 +51,9 @@ $.keepScreenFilled = function () {
 };
 
 /**
- * Reset the fill on the given content, or #main
+ * Reset the fill on the given content, or #content
  */
 $.resetFill = function () {
   var options = arguments[0] || {};
-  $(options.content || '#main').attr ('style', '');
+  $(options.content || '#content').attr ('style', '');
 };
