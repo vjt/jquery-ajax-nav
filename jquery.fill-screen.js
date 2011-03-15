@@ -14,9 +14,6 @@
     var options = $.extend ({
       inner  : content.height (),
       outer  : content.outerHeight (),
-
-      header : '#header',
-      footer : '#footer',
       content: content
     }, options);
 
@@ -29,31 +26,26 @@
 
   /**
    * Dynamically adjusts the height of the #content container
-   * to the available maximum,  after subtracting the #header
-   * and the #footer heights.
+   * to the available maximum, after subtracting the siblings
+   * heights.
    *
-   * You can pass the IDs via options.header, options.content
-   * and options.footer and and you can also pass the content
-   * dimensions via options.inner and options.outer.
+   * You can pass the content dimensions via the .inner and
+   * .outer options.
    *
    * If the calculated dimensions are *less* than the actual
    * ones, nothing is performed.
    */
-  var fill = function () {
-    var options = arguments[0] || {};
-
-    var header  = $(options.header );
-    var content = $(options.content);
-    var footer  = $(options.footer );
-
+  var fill = function (options) {
     var inner   = options.inner;
     var outer   = options.outer;
-    var changed = $(window).height () - header.outerHeight () - footer.outerHeight ();
+    var changed = $(window).height () - inner - outer;
 
-    changed -= outer - inner;
+    options.content.siblings.each (function () {
+      changed -= $(this).outerHeight ();
+    });
 
     if (inner < changed)
-      content.height (changed);
+      options.content.height (changed);
   };
 
 }) (jQuery);
