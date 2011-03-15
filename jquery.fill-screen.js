@@ -1,7 +1,14 @@
 // jQuery fill-screen
 //
-//  - vjt  Mon Mar 14 18:04:04 CET 2011
-
+// You-d better use a CSS-only solution,
+// such as the one implemented by Ryan Fait
+//
+// http://ryanfait.com/resources/footer-stick-to-bottom-of-page/
+//
+// If you cannot, just resort to this hacky JS.
+//
+//  - vjt  Tue Mar 15 11:38:12 CET 2011
+//
 (function ($) {
 
   /**
