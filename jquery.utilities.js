@@ -12,17 +12,6 @@ $.log = function (message) {
 };
 
 /**
- * Utility helper that clones the given object and returns a
- * newly created one. WARNING: does not recursively copies
- * nested objects!
- */
-$.clone = function (obj) {
-  return combine ({}, function (copy) {
-    for (key in obj) copy[key] = obj[key];
-  });
-};
-
-/**
  * Returns true or false whether the given X, Y coords
  * are covered by this element area on the page or not.
  */
